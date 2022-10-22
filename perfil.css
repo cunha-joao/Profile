@@ -1,0 +1,27 @@
+.img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.name-title {
+    font: bold;
+    font-size: 30px;
+}
+
+.content {
+    margin-top: 10px;
+    border-top: 2px solid grey;
+    font-size: 20px;
+}
