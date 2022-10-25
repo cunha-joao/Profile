@@ -2,29 +2,64 @@
 <html>
     <head>
         <link href="./perfil.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/58423cd6a9.js" crossorigin="anonymous"></script>
         <meta charset="UTF-8">
         <title>Profile</title>
     </head>
 
     <body>
-        <div class="header">
-            <div class="img">
-                <img src="perfil.jpg">
+        <div class="curriculo">
+            <div class="header">
+                <div class="img">
+                    <img src="perfil.jpg">
+                </div>
+                <div class="name-title">João Carlos Ribeiro da Cunha</div>
             </div>
-            <div class="name-title">João Carlos Ribeiro da Cunha</div>
-        </div>
 
-        <div class="content">
-            <h2>About me:</h2>
-            <div><b>Phone:</b> 966 686 606</div>
-            <div><b>Email:</b> joao.c.r.c@hotmail.com</div>
-            <div>
-                <b>Form to contact me:</b> You can either contact me trough my <a href="tel:966686606">phone number</a>
-                or my <a href="mailto:joao.c.r.c@hotmail.com">email</a>.<br/>
+            <div class="profile">
+                <h2>About me:</h2>
+                I'm an autonomous person who likes to overcome challenges in creative ways. I like to spend most of my free time
+                relaxing or learning new things and I love working with computers specialy when it comes to programming. That's why
+                I'm currently studying to get a degree in Computer Science and Engineering.
             </div>
-            <div><b>Skills:</b> Autonomous, Creative</div>
-            <div><b>Languages:</b> Portuguese, English</div>
-            <div><b>Education:</b> High School Graduate (Ciências e Tecnologia)</div>            
+
+            <div class="content">
+                <div class="column">
+                    <h2>Contacts</h2>
+                    <div><i class="fa-solid fa-phone"></i> 966 686 606</div>
+                    <div><i class="fa-solid fa-envelope"></i> joao.c.r.c@hotmail.com</div>
+                    <div>
+                        You can either contact me trough my <a href="tel:966686606">phone number</a>
+                        or my <a href="mailto:joao.c.r.c@hotmail.com">email</a>.<br/>
+                    </div>        
+                </div>
+
+                <div class="column">
+                    <h2>Skillset</h2>
+                    <div><i class="fa-solid fa-star"></i> Autonomous, Creative</div>
+                    <div><i class="fa-solid fa-language"></i> Portuguese, English</div>
+                    <div><i class="fa-solid fa-graduation-cap"></i> High School Graduate (Ciências e Tecnologia)</div>
+                </div>         
+            </div>
+
+            <form class="form">
+                <h2>Contact me</h2>
+                <div>
+                    <input type="text" name="name" id="name" required placeholder="Name">
+                </div>
+                <div>
+                    <input type="text" name="email" id="email" required placeholder="Email">
+                </div>
+                <div>
+                    <input type="text" name="phone" id="phone" required placeholder="Phone">
+                </div>
+                <div>
+                    <input type="text" name="message" id="message" required placeholder="Message">
+                </div>
+                <div>
+                    <input type="submit" value="Send">
+                </div>
+            </form>
         </div>
     </body>
 </html>
