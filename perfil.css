@@ -1,11 +1,21 @@
+body {
+    background-color: rgba(232, 185, 118, 0.388);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 .img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 250px;
+    width: 225px;
+    height: 225px;
     overflow: hidden;
     border-radius: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .header {
@@ -13,6 +23,24 @@
     align-items: center;
     justify-content: center;
     gap: 32px;
+    
+}
+
+.curriculo {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1150px;
+    background-color: rgb(179, 204, 127);
+    border: 2px solid black;
+}
+
+.curriculo >*{
+    width: 100%;
+}
+
+.curriculo >*:not(:first-child){
+    border-top: 2px solid black;
 }
 
 .name-title {
@@ -20,8 +48,53 @@
     font-size: 30px;
 }
 
-.content {
-    margin-top: 10px;
-    border-top: 2px solid grey;
+.profile {
+    display: flex;
+    align-items: center;
     font-size: 20px;
+    flex-direction: column;
+    margin: auto;
+    
+    padding: 15px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    
+    font-size: 20px;
+}
+
+.column {
+    flex:1;
+    padding: 20px;
+}
+
+.column:first-child {
+    border-right: 1px solid black;
+}
+
+.column:last-child {
+    border-left: 1px solid black;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 15px;
+    font-size: 20px;
+}
+
+.form input {
+    margin: 2px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.form input[type="submit"] {
+    color: white;
+    background-color: black;
 }
