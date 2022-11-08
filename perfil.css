@@ -2,6 +2,23 @@
     box-sizing: border-box;
 }
 
+html {
+    font-family: 'Poppins', sans-serif;;
+}
+
+body{
+    background-color: #ebebeb;
+}
+
+h2 {
+    color: #004e98;
+}
+
+a {
+    color: #004e98;
+    text-decoration: none;
+}
+
 .img {
     display: flex;
     align-items: center;
@@ -19,7 +36,6 @@
     align-items: center;
     justify-content: center;
     gap: 32px;
-    
 }
 
 .curriculo {
@@ -27,7 +43,7 @@
     flex-direction: column;
     margin: auto;
     max-width: 1150px;
-    background-color: rgb(232, 185, 118, 0.388);
+    background-color: #ffffff;
     border: 2px solid black;
 }
 
@@ -40,8 +56,9 @@
 }
 
 .name-title {
-    font: bold;
     font-size: 30px;
+    color: #004e98;
+    font-weight: bold;
 }
 
 .profile {
@@ -55,7 +72,6 @@
 
 .content {
     display: flex;
-    align-items: center;
     margin: auto;
     font-size: 20px;
 }
@@ -89,11 +105,13 @@
     border-radius: 10px;
     font-size: 20px;
     width: 300px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .form input[type="submit"] {
     color: white;
-    background-color: black;
+    background-color: #004e98;
+    border-color: #004e98;
 }
 
 @media only screen and (max-width: 550px) {
