@@ -1,3 +1,8 @@
+<?php require_once('./connect.php');
+
+    $db = pdo_connect_mysql();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
