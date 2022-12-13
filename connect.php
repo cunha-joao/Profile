@@ -10,7 +10,7 @@
 
         } catch(PDOException $exception){
             //If there is an error with the connection, stop the script and display the error.
-            echo "Failed";
+            echo "Failed!";
 
             exit();
         }
