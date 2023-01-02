@@ -1,4 +1,4 @@
-<?php require_once('./connect.php');
+<?php require_once('./cms/db/connect.php');
 
     $db = pdo_connect_mysql();
 ?>
@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--Profile photo-->
         <link href="./perfil.css" rel="stylesheet">
         <!--Fonts-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="UTF-8">
-        <title>Curriculum João Cunha</title>
+        <title>Curriculum Creator</title>
     </head>
 
     <body>
