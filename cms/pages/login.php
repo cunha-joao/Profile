@@ -8,13 +8,6 @@
     </head>
 
     <body>
-        <?php
-            session_start();
-
-            require_once("../db/connect.php");
-
-            $message="Conection succesfull";
-        ?>
         <div class="login">
             <form class="form">
                 <h2>Login</h2>
@@ -28,7 +21,6 @@
                     <input type="submit" value="Connect">
                 </div>
             </form>
-        </div>
-        
+        </div> 
     </body>
 </html>
