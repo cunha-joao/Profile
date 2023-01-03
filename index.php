@@ -22,6 +22,12 @@
 
     <body>
         <div class="curriculo">
+            <nav class="navbar">
+                <a href="./cms/pages/login.php" class="nav-link">
+                    <i class="fa-solid fa-user"></i>Login
+                </a>
+            </nav>
+           
             <div class="header">
                 <div class="img">
                     <img src="./assets/Profile.jpg">
