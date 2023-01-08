@@ -1,6 +1,5 @@
-<?php require_once('./cms/db/connect.php');
-
-    $db = pdo_connect_mysql();
+<?php
+require_once('./cms/db/connect.php');
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +22,7 @@
     <body>
         <div class="curriculo">
             <nav class="navbar">
-                <a href="./cms/pages/login.php" class="nav-link">
+                <a href="./cms/auth/login.php" class="nav-link">
                     <i class="fa-solid fa-user"></i>Login
                 </a>
             </nav>

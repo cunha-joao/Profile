@@ -50,7 +50,7 @@ a {
     text-align: right;
     display: flex;
     align-items: center;
-    gap: 8px;   
+    gap: 10px;   
 }
 
 .curriculo {
@@ -164,5 +164,45 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 95vh;
+}
+
+/* REGISTER PAGE */
+
+.register .form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding-bottom: 24px;
+    background-color: #ffffff;
+    border: 2px solid black;
+}
+
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+}
+
+/* EDITING PAGE */
+
+.editing-options {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 200px;
+    background-color: #ffffff;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+}
+
+.editing-options .nav-link {
+    padding: 15px;
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+    align-items: center;
 }
