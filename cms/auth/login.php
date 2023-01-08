@@ -87,13 +87,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <h2>Login</h2>
                 <div>
-                    <input type="text" name="name" id="name" required placeholder="Username">
+                    <input type="text" name="name" value="<?php echo $name; ?>" id="name" required placeholder="Username">
                 </div>
                 <div>
                     <input type="password" name="password" id="password" required placeholder="Password">
                 </div>
                 <div>
-                    <input type="submit">
+                    <input type="submit" value="Login">
                 </div>
                 <div>
                     <a href="./register.php">Don't have an account? Register here.</a>
