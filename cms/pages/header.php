@@ -25,12 +25,31 @@ if($_SESSION["role"] != 1) {
     <body>
         <?php require_once("../../layout/navbar.php");?>
 
-        <div class="editing">
-            <form method="post" enctype="multipart/form-data" class="form">
-                <input type="text" name="name" id="name" required placeholder="Full Name">
-                <input type="file" name="fileToUpload" id="fileToUpload" class="mb-4">
+        <?php
+        // Update the database
+        require_once "../db/connect.php";
+        $description="";
 
-                <input type="submit" value="Save" name="submit">
+        if($_SERVER["REQUEST_METHOD"] == 'POST'){
+            $name = trim($_POST["name"]);
+
+            $sql = "UPDATE name SET name=:name WHERE id=1";
+
+            if($stmt = $pdo->prepare($sql)){
+                $stmt->bindParam(":name", $name, PDO::PARAM_STR);
+                if($stmt->execute()){
+                    header("Location: ../../index.php");
+                }
+                unset($stmt);
+            }
+        }
+        ?>
+
+        <div class="editing">
+            <form method="post" action="../../index.php" enctype="multipart/form-data" class="form">
+                <input type="text" name="name" id="name" required placeholder="Full Name">
+
+                <input type="submit" value="Save">
             </form>
         </div>
     </body>

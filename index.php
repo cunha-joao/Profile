@@ -83,7 +83,7 @@ require_once('./layout/head.php');
                 </div>
 
                 <div class="column">
-                <?php // Read "Skills"
+                    <?php // Read "Skills"
                     require_once "./cms/db/connect.php";
                     $sql = "SELECT my_skills, languages, education FROM skills WHERE id = 1";
                     if($stmt = $pdo->prepare($sql)){
@@ -106,7 +106,7 @@ require_once('./layout/head.php');
                     <div><i class="fa-solid fa-graduation-cap"></i> <?php echo $row["education"]; ?></div>
                 </div>
             </div>
-
+            <!--
             <?php
             require_once "./cms/db/connect.php";
 
@@ -119,64 +119,52 @@ require_once('./layout/head.php');
                 $phone = trim($_POST["phone"]);
                 $message = trim($_POST["message"]);
 
-                if(empty($name)){
+                if(empty(trim($name))){
                     $name_err = "Please enter your name.";
                 }
                 
                 if(empty($email)){
-                    $email_err = "Please enter an email.";     
+                    $email_err = "Please enter an email.";
                 }
 
                 if(empty($phone)){
-                    $phone_err = "Please enter a phone number.";     
+                    $phone_err = "Please enter a phone number.";
                 }
 
-                if(empty($message)){
-                    $message_err = "Please enter your message.";     
+                if(empty(trim($message))){
+                    $message_err = "Please enter your message.";
                 }
 
                 if(empty($name_err) && empty($email_err) && empty($phone_err) && empty($message_err)){
-                    $sql = "INSERT INTO `contact_requests` (name, email, phone, message, user_id) VALUES (:name, :email, :phone, :message, 24)";
+                    $user_id = $_SESSION["id"];
+                    $sql = "INSERT INTO `contact_requests` (name, email, phone, message, user_id) VALUES (:name, :email, :phone, :message, $user_id)";
                     
                     if($stmt = $pdo->prepare($sql)){
                         $stmt->bindParam(":name", $name, PDO::PARAM_STR);
                         $stmt->bindParam(":email", $email , PDO::PARAM_STR);
                         $stmt->bindParam(":phone", $phone , PDO::PARAM_STR);
                         $stmt->bindParam(":message", $message , PDO::PARAM_STR);
-
+                        
                         unset($stmt);
                     }
                 }
             unset($pdo);
             }
             ?>
-            <form class="form">
+            -->
+            <form class="form" method="post">
                 <h2>Contact me</h2>
-                <?php 
-                    if(!empty($name_err)){
-                        echo '<div class="alert alert-danger">' . $name_err . '</div>';
-                    }
-                    if(!empty($email_err)){
-                        echo '<div class="alert alert-danger">' . $email_err . '</div>';
-                    }
-                    if(!empty($phone_err)){
-                        echo '<div class="alert alert-danger">' . $phone_err . '</div>';
-                    }
-                    if(!empty($message_err)){
-                        echo '<div class="alert alert-danger">' . $message_err . '</div>';
-                    }
-                ?>
                 <div>
-                    <input type="text" name="name" value="<?php echo $name; ?>" id="name" required placeholder="Name">
+                    <input type="text" name="name" id="name" required placeholder="Name">
                 </div>
                 <div>
-                    <input type="email" name="email" value="<?php echo $email; ?>" id="email" required placeholder="Email">
+                    <input type="email" name="email" id="email" required placeholder="Email">
                 </div>
                 <div>
-                    <input type="text" name="phone" value="<?php echo $phone; ?>" id="phone" required placeholder="Phone">
+                    <input type="text" name="phone" id="phone" required placeholder="Phone">
                 </div>
                 <div>
-                    <textarea rows="5" name="message"  value="<?php echo $message; ?>"id="message" required placeholder="Message"></textarea>
+                    <textarea rows="5" name="message" id="message" required placeholder="Message"></textarea>
                 </div>
                 <div>
                     <input type="submit" value="Send">

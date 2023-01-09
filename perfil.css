@@ -212,3 +212,14 @@ a {
     align-items: center;
     justify-content: center;
 }
+
+/* MESSAGES PAGE */
+
+.message {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 5px;
+}
