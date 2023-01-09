@@ -13,6 +13,7 @@ if($_SESSION["role"] != 1) {
 }
 ?>
 
+
 <html>
     <head>
         <link href="../../perfil.css" rel="stylesheet">
@@ -26,5 +27,48 @@ if($_SESSION["role"] != 1) {
     <body>
         <?php require_once("../../layout/navbar.php");?>
         
+        <?php
+        // Update the database
+        require_once "../db/connect.php";
+        $my_skills="";
+        $languages="";
+        $education="";
+
+        if($_SERVER["REQUEST_METHOD"] == 'POST'){
+            $my_skills = trim($_POST["my_skills"]);
+            $languages = trim($_POST["languages"]);
+            $education = trim($_POST["education"]);
+
+            $sql = "UPDATE skills SET my_skills=:my_skills, languages=:languages, education=:education WHERE id=1";
+
+            if($stmt = $pdo->prepare($sql)){
+                $stmt->bindParam(":my_skills", $my_skills, PDO::PARAM_STR);
+                $stmt->bindParam(":languages", $languages, PDO::PARAM_STR);
+                $stmt->bindParam(":education", $education, PDO::PARAM_STR);
+
+                if($stmt->execute()){
+                    header("Location: ../../index.php");
+                }
+                unset($stmt);
+            }
+        }
+        ?>
+        <div class="editing">
+            <form class="form" method="post">
+                <h2>Skills</h2>
+                <div>
+                    <input type="text" name="my_skills" id="my_skills" required placeholder="Skills">
+                </div>
+                <div>
+                    <input type="text" name="languages" id="languages" required placeholder="Languages">
+                </div>
+                <div>
+                    <input type="text" name="education" id="education" required placeholder="Education" class="mb-4">
+                </div>
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
     </body>
 </html>

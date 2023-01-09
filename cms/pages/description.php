@@ -25,5 +25,38 @@ if($_SESSION["role"] != 1) {
 
     <body>
         <?php require_once("../../layout/navbar.php");?>
+
+        <?php
+        // Update the database
+        require_once "../db/connect.php";
+        $description="";
+
+        if($_SERVER["REQUEST_METHOD"] == 'POST'){
+            $description = trim($_POST["description"]);
+
+            $sql = "UPDATE description SET description=:description WHERE id=1";
+
+            if($stmt = $pdo->prepare($sql)){
+                $stmt->bindParam(":description", $description, PDO::PARAM_STR);
+                if($stmt->execute()){
+                    header("Location: ../../index.php");
+                }
+
+                unset($stmt);
+            }
+        }
+        ?>
+
+        <div class="editing">
+            <form class="form" method="post">
+                <h2>About me</h2>
+                <div>
+                    <textarea rows="7" name="description" id="description" required placeholder="Description" class="mb-4"></textarea>
+                </div>
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
     </body>
 </html>

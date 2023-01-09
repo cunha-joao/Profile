@@ -195,3 +195,20 @@ a {
     text-align: center;
     align-items: center;
 }
+
+/* EDITING PAGES */
+
+.editing .form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding-bottom: 24px;
+    background-color: #ffffff;
+    border: 2px solid black;
+}
+
+.editing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

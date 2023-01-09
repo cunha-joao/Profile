@@ -14,7 +14,6 @@ if($_SESSION["role"] != 1) {
 ?>
 
 
-<!DOCTYPE html>
 <html>
     <head>
         <link href="../../perfil.css" rel="stylesheet">
@@ -26,5 +25,43 @@ if($_SESSION["role"] != 1) {
 
     <body>
         <?php require_once("../../layout/navbar.php");?> 
+
+        <?php
+        // Update the database
+        require_once "../db/connect.php";
+        $phone="";
+        $email="";
+
+        if($_SERVER["REQUEST_METHOD"] == 'POST'){
+            $phone = trim($_POST["phone"]);
+            $email = trim($_POST["email"]);
+
+            $sql = "UPDATE contacts SET phone=:phone, email=:email WHERE id=1";
+
+            if($stmt = $pdo->prepare($sql)){
+                $stmt->bindParam(":phone", $phone, PDO::PARAM_STR);
+                $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+
+                if($stmt->execute()){
+                    header("Location: ../../index.php");
+                }
+                unset($stmt);
+            }
+        }
+        ?>
+        <div class="editing">
+            <form class="form" method="post">
+                <h2>Contacts</h2>
+                <div>
+                    <input type="text" name="phone" id="phone" required placeholder="Phone Number">
+                </div>
+                <div>
+                    <input type="email" name="email" id="email" required placeholder="Email" class="mb-4">
+                </div>
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
     </body>
 </html>

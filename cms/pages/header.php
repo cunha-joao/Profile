@@ -24,5 +24,14 @@ if($_SESSION["role"] != 1) {
 
     <body>
         <?php require_once("../../layout/navbar.php");?>
+
+        <div class="editing">
+            <form method="post" enctype="multipart/form-data" class="form">
+                <input type="text" name="name" id="name" required placeholder="Full Name">
+                <input type="file" name="fileToUpload" id="fileToUpload" class="mb-4">
+
+                <input type="submit" value="Save" name="submit">
+            </form>
+        </div>
     </body>
 </html>

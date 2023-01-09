@@ -108,7 +108,6 @@
         <div class="register">
             <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <h2>Register</h2>
-
                 <?php 
                     if(!empty($name_err)){
                         echo '<div class="alert alert-danger">' . $name_err . '</div>';
@@ -118,7 +117,6 @@
                         echo '<div class="alert alert-danger">' . $password_err . '</div>';
                     }     
                 ?>
-
                 <div>
                     <input type="text" name="name" value="<?php echo $name; ?>" id="name" required placeholder="Username">
                 </div>
