@@ -1,7 +1,4 @@
-<?php
-// Initialize the session
-session_start();
- 
+<?php 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: ../../index.php");
@@ -12,7 +9,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "../db/connect.php";
  
 // Define variables and initialize with empty values
-$name = $password = "";
+$name = "";
 $name_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
@@ -20,14 +17,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($name_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, name, password FROM `user` WHERE name = :name";
+        $sql = "SELECT id, name, password, ur.role_id as role FROM `user`, `user_role` as ur WHERE name = :name AND ur.user_id = user.id";
         
         if($stmt = $pdo->prepare($sql)){
+            $param_name = trim($_POST["name"]);
+            $param_password = trim($_POST["password"]);
+            
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":name", $param_name, PDO::PARAM_STR);
             
             // Set parameters
-            $param_name = trim($_POST["name"]);
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -36,8 +35,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if($row = $stmt->fetch()){
                         $id = $row["id"];
                         $name = $row["name"];
+                        $role = $row["role"];
                         $hashed_password = $row["password"];
-                        if(password_verify($password, $hashed_password)){
+
+
+                        if(password_verify($param_password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
                             
@@ -45,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["name"] = $name;
+                            $_SESSION["role"] = $role;
                             
                             // Redirect user to welcome page
                             header("location: ../pages/options.php");
@@ -72,33 +75,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html>
     <head>
         <link href="../../perfil.css" rel="stylesheet">
-        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <meta charset="UTF-8">
         <title>Login</title>
     </head>
 
     <body>
-        <div class="login">
-            <?php 
-            if(!empty($login_err)){
-                echo '<div class="alert alert-danger">' . $login_err . '</div>';
-            }        
-            ?>
-            <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <h2>Login</h2>
-                <div>
-                    <input type="text" name="name" value="<?php echo $name; ?>" id="name" required placeholder="Username">
+     <?php require_once("../../layout/navbar.php");?>
+
+        <div class="container">
+            <div class="row">
+                <div class="login col">
+                
+                <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <h1>Login</h1>
+
+                    <?php 
+                        if(!empty($login_err)){
+                            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                        }        
+                    ?>
+
+                        <input type="text" name="name" value="<?php echo $name; ?>" id="name" required placeholder="Username">
+                        <input type="password" name="password" id="password" required placeholder="Password" class="mb-4">
+                        <input type="submit" value="Login">
+                        <a href="../pages/register.php">Don't have an account? Register here.</a>
+                </form>
                 </div>
-                <div>
-                    <input type="password" name="password" id="password" required placeholder="Password">
-                </div>
-                <div>
-                    <input type="submit" value="Login">
-                </div>
-                <div>
-                    <a href="./register.php">Don't have an account? Register here.</a>
-                </div>
-            </form>
+                
+            </div>
+            
         </div>
+        
     </body>
 </html>

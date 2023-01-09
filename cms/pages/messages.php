@@ -6,8 +6,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../auth/login.php");
     exit;
 }
-
-if($_SESSION["role"] != 1) {
+if($_SESSION["role"] != 2) {
     header("location: ../../index.php");
     exit;
 }

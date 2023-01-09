@@ -7,12 +7,9 @@ html {
 }
 
 body {
-    background-color: #ebebeb;
+    background-color: #ebebeb !important;
 }
 
-h2 {
-    color: #004e98;
-}
 
 a {
     color: black;
@@ -42,6 +39,7 @@ a {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background-color: white;
 }
 
 .navbar .nav-link {
@@ -72,7 +70,6 @@ a {
 
 .name-title {
     font-size: 30px;
-    color: #004e98;
     font-weight: bold;
 }
 
@@ -162,9 +159,9 @@ a {
 
 .login {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 95vh;
 }
 
 /* REGISTER PAGE */
@@ -182,21 +179,13 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 95vh;
 }
 
 /* EDITING PAGE */
 
 .editing-options {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    max-width: 200px;
     background-color: #ffffff;
     border: 2px solid black;
-    align-items: center;
-    justify-content: center;
-    height: 95vh;
 }
 
 .editing-options .nav-link {
