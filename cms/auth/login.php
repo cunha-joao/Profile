@@ -40,8 +40,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
                         if(password_verify($param_password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
