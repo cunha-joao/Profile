@@ -1,5 +1,50 @@
 <?php
 require_once('./layout/head.php');
+require_once "./cms/db/connect.php";
+
+$name = $email = $phone = $message = "";
+$name_err = $email_err = $phone_err = $message_err = $message_success = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $name = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $phone = trim($_POST["phone"]);
+    $message = trim($_POST["message"]);
+
+    if(empty(trim($name))){
+        $name_err = "Please enter your name.";
+    }
+    
+    if(empty($email)){
+        $email_err = "Please enter an email.";
+    }
+
+    if(empty($phone)){
+        $phone_err = "Please enter a phone number.";
+    }
+
+    if(empty(trim($message))){
+        $message_err = "Please enter your message.";
+    }
+
+    if(empty($name_err) && empty($email_err) && empty($phone_err) && empty($message_err)){
+        $sql = "INSERT INTO `contact_requests` (name, email, phone, message) VALUES (:name, :email, :phone, :message)";
+        
+        if($stmt = $pdo->prepare($sql)){
+            $stmt->bindParam(":name", $name, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $email , PDO::PARAM_STR);
+            $stmt->bindParam(":phone", $phone , PDO::PARAM_STR);
+            $stmt->bindParam(":message", $message , PDO::PARAM_STR);
+
+            if($stmt->execute()) {
+                $message_success = "Message sent successfully!";
+            }
+
+            unset($stmt);
+        }
+    }
+}
+            
 ?>
 
 <!DOCTYPE html>
@@ -106,53 +151,11 @@ require_once('./layout/head.php');
                     <div><i class="fa-solid fa-graduation-cap"></i> <?php echo $row["education"]; ?></div>
                 </div>
             </div>
-            <!--
-            <?php
-            require_once "./cms/db/connect.php";
-
-            $name = $email = $phone = $message = "";
-            $name_err = $email_err = $phone_err = $message_err = "";
-
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
-                $name = trim($_POST["name"]);
-                $email = trim($_POST["email"]);
-                $phone = trim($_POST["phone"]);
-                $message = trim($_POST["message"]);
-
-                if(empty(trim($name))){
-                    $name_err = "Please enter your name.";
-                }
-                
-                if(empty($email)){
-                    $email_err = "Please enter an email.";
-                }
-
-                if(empty($phone)){
-                    $phone_err = "Please enter a phone number.";
-                }
-
-                if(empty(trim($message))){
-                    $message_err = "Please enter your message.";
-                }
-
-                if(empty($name_err) && empty($email_err) && empty($phone_err) && empty($message_err)){
-                    $user_id = $_SESSION["id"];
-                    $sql = "INSERT INTO `contact_requests` (name, email, phone, message, user_id) VALUES (:name, :email, :phone, :message, $user_id)";
-                    
-                    if($stmt = $pdo->prepare($sql)){
-                        $stmt->bindParam(":name", $name, PDO::PARAM_STR);
-                        $stmt->bindParam(":email", $email , PDO::PARAM_STR);
-                        $stmt->bindParam(":phone", $phone , PDO::PARAM_STR);
-                        $stmt->bindParam(":message", $message , PDO::PARAM_STR);
-                        
-                        unset($stmt);
-                    }
-                }
-            unset($pdo);
-            }
-            ?>
-            -->
+            
             <form class="form" method="post">
+                <?php if(!empty(trim($message_success))):?>
+                    <div class="alert alert-success"><?= $message_success ?></div>
+                <?php endif; ?>
                 <h2>Contact me</h2>
                 <div>
                     <input type="text" name="name" id="name" required placeholder="Name">
@@ -161,7 +164,7 @@ require_once('./layout/head.php');
                     <input type="email" name="email" id="email" required placeholder="Email">
                 </div>
                 <div>
-                    <input type="text" name="phone" id="phone" required placeholder="Phone">
+                    <input type="number" name="phone" id="phone" required placeholder="Phone">
                 </div>
                 <div>
                     <textarea rows="5" name="message" id="message" required placeholder="Message"></textarea>

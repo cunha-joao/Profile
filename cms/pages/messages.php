@@ -1,14 +1,25 @@
 <?php 
 require_once('../../layout/head.php');
+require_once "../db/connect.php";
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../auth/login.php");
     exit;
 }
-if($_SESSION["role"] != 2) {
-    header("location: ../../index.php");
-    exit;
+
+
+$messages = [];
+$sql = "SELECT name, email, phone, message FROM contact_requests";
+if($stmt = $pdo->prepare($sql)){
+    if($stmt->execute()){
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            array_push($messages, $row);
+        }
+    } else{
+        echo "Something went wrong.";
+    }
 }
+unset($stmt);
 ?>
 
 <html>
@@ -26,32 +37,19 @@ if($_SESSION["role"] != 2) {
         <?php require_once("../../layout/navbar.php");?>
         
         <div class="column">
-            <?php // Read "Messages"
-            require_once "../db/connect.php";
-
-            $sql = "SELECT name, email, phone, message FROM contact_requests";
-            if($stmt = $pdo->prepare($sql)){
-                if($stmt->execute()){
-                    if($stmt->rowCount() == 1){
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $name = $row["name"];
-                        $email = $row["email"];
-                        $phone = $row["phone"];
-                        $message = $row["message"];
-                    }
-                } else{
-                    echo "Something went wrong.";
-                }
-            }
-            unset($stmt);
-            ?>
-            <h2>Messages</h2>
-            <div class = "message">
-                <div><i class="fa-solid fa-user"></i> <?php echo $row["name"]; ?></div>
-                <div><i class="fa-solid fa-phone"></i> <?php echo $row["email"]; ?></div>
-                <div><i class="fa-solid fa-envelope"></i> <?php echo $row["phone"]; ?></div>
-                <div> <?php echo $row["message"]; ?></div>
+            <h1 class="text-center mb-4">Messages</h1>
+            
+            <div class="container d-flex align-items-center flex-column gap-3">
+            <?php foreach($messages as $row):?>
+                <div class="message">
+                    <div><i class="fa-solid fa-user"></i> <?php echo $row["name"]; ?></div>
+                    <div><i class="fa-solid fa-phone"></i> <?php echo $row["email"]; ?></div>
+                    <div><i class="fa-solid fa-envelope"></i> <?php echo $row["phone"]; ?></div>
+                    <div> <?php echo $row["message"]; ?></div>
+                </div>
+            <?php endforeach;?>
             </div>
+            
         </div>
     </body>
 </html>

@@ -8,13 +8,12 @@
         <a href="<?= ROOT ?>/index.php" class="navbar-brand">Home</a>
         <ul class="navbar-nav d-flex flex-row">
             <?php if($isLoggedIn): ?>
-                <li class="nav-item">
-                    <?php if($_SESSION["role"] == 1):?>
+                <?php if($_SESSION["role"] == 1):?>
+                    <li class="nav-item">
                         <a href="<?= ROOT ?>/cms/pages/options.php" class="nav-link">Edit</a>
-                    <?php else: ?>
-                        <a href="<?= ROOT ?>/cms/pages/messages.php" class="nav-link">Messages</a>
-                    <?php endif; ?>
                 </li>
+                <?php endif; ?>
+                <li class="nav-item"><a href="<?= ROOT ?>/cms/pages/messages.php" class="nav-link">Messages</a></li>
                 <li class="nav-item"><a href="<?= ROOT ?>/cms/auth/logout.php" class="nav-link">Logout</a></li>
             <?php else:?>
                 <li class="nav-item">
