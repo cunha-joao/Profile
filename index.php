@@ -75,13 +75,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
            
             <div class="header">
                 <div class="img">
-                    <img src="./assets/Profile.jpg">
+                    <?php 
+                        $sql = "SELECT name, image_path FROM header WHERE id = 1";
+                        if($stmt = $pdo->prepare($sql)){
+                            if($stmt->execute()){
+                                if($stmt->rowCount() == 1){
+                                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    $name = $row["name"];
+                                    $path = $row["image_path"];
+                                }
+                            } else{
+                                echo "Something went wrong.";
+                            }
+                        }
+                        unset($stmt);
+                    ?>
+                    <img src="./assets/<?= $path?>">
                 </div>
-                <div class="name-title">João Carlos Ribeiro da Cunha</div>
+                <div class="name-title"><?= $name ?></div>
             </div>
 
-            <?php // Read "About me"
-            require_once "./cms/db/connect.php";
+            <?php
             $sql = "SELECT description FROM description WHERE id = 1";
             if($stmt = $pdo->prepare($sql)){
                 if($stmt->execute()){
@@ -103,7 +117,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="content">
                 <div class="column">
                     <?php // Read "Contacts"
-                    require_once "./cms/db/connect.php";
                     $sql = "SELECT phone, email FROM contacts WHERE id = 1";
                     if($stmt = $pdo->prepare($sql)){
                         if($stmt->execute()){
@@ -129,7 +142,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 <div class="column">
                     <?php // Read "Skills"
-                    require_once "./cms/db/connect.php";
                     $sql = "SELECT my_skills, languages, education FROM skills WHERE id = 1";
                     if($stmt = $pdo->prepare($sql)){
                         if($stmt->execute()){

@@ -52,18 +52,31 @@ if($_SESSION["role"] != 1) {
                 unset($stmt);
             }
         }
+
+        $my_skills = "";
+        $languages="";
+        $education = "";
+        $sql = "SELECT my_skills, languages,education FROM skills WHERE id = 1";
+        if($stmt = $pdo->prepare($sql)){
+            if($stmt->execute()){
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $my_skills = $row["my_skills"];
+                $languages = $row["languages"];
+                $education = $row["education"];
+            }
+        }
         ?>
         <div class="editing">
             <form class="form" method="post">
                 <h2>Skills</h2>
                 <div>
-                    <input type="text" name="my_skills" id="my_skills" required placeholder="Skills">
+                    <input type="text" name="my_skills" id="my_skills" value="<?= $my_skills?>" required placeholder="Skills">
                 </div>
                 <div>
-                    <input type="text" name="languages" id="languages" required placeholder="Languages">
+                    <input type="text" name="languages" id="languages" value="<?= $languages?>"  required placeholder="Languages">
                 </div>
                 <div>
-                    <input type="text" name="education" id="education" required placeholder="Education" class="mb-4">
+                    <input type="text" name="education" id="education" value="<?= $education?>"  required placeholder="Education" class="mb-4">
                 </div>
                 <div>
                     <input type="submit" value="Save">

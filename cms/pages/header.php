@@ -1,5 +1,6 @@
 <?php 
     require_once('../../layout/head.php');
+    require_once "../db/connect.php";
 
     // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -11,6 +12,48 @@ if($_SESSION["role"] != 1) {
     header("location: ../../index.php");
     exit;
 }
+
+if($_SERVER["REQUEST_METHOD"] == 'POST'){
+    $file = $_FILES["avatar"];
+    $target_file = basename($file["name"]);
+
+    if($file["size"] > 0){
+        move_uploaded_file($file["tmp_name"], "../../assets/" . $target_file);
+
+        $sql = "UPDATE header SET image_path=:path WHERE id=1";
+
+        if($stmt = $pdo->prepare($sql)){
+            $stmt->bindParam(":path", $target_file, PDO::PARAM_STR);
+
+            $stmt->execute();
+            unset($stmt);
+        }
+    }
+
+    $name = trim($_POST["name"]);
+
+    $sql = "UPDATE header SET name=:name WHERE id=1";
+
+    if($stmt = $pdo->prepare($sql)){
+        $stmt->bindParam(":name", $name, PDO::PARAM_STR);
+
+         if($stmt->execute()){
+            header("Location: ../../index.php");
+        } 
+        unset($stmt);
+    }
+}
+        
+
+    $sql = "SELECT name FROM header WHERE id = 1";
+    if($stmt = $pdo->prepare($sql)){
+        if($stmt->execute()){
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $name = $row["name"];
+            }
+        }
+    }
+    unset($stmt);
 ?>
 
 <html>
@@ -25,29 +68,10 @@ if($_SESSION["role"] != 1) {
     <body>
         <?php require_once("../../layout/navbar.php");?>
 
-        <?php
-        // Update the database
-        require_once "../db/connect.php";
-        $description="";
-
-        if($_SERVER["REQUEST_METHOD"] == 'POST'){
-            $name = trim($_POST["name"]);
-
-            $sql = "UPDATE name SET name=:name WHERE id=1";
-
-            if($stmt = $pdo->prepare($sql)){
-                $stmt->bindParam(":name", $name, PDO::PARAM_STR);
-                if($stmt->execute()){
-                    header("Location: ../../index.php");
-                }
-                unset($stmt);
-            }
-        }
-        ?>
-
         <div class="editing">
-            <form method="post" action="../../index.php" enctype="multipart/form-data" class="form">
-                <input type="text" name="name" id="name" required placeholder="Full Name">
+            <form method="post" action="header.php" enctype="multipart/form-data" class="form">
+                <input type="text" name="name" id="name" value="<?= $name ?>" placeholder="Full Name">
+                <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg">
 
                 <input type="submit" value="Save">
             </form>
